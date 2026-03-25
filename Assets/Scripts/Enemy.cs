@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public float damageRange;
     public BattleManager battleManager;
 
-    protected virtual void EnemyTurn()
+    public virtual void EnemyTurn()
     {
         if (battleManager.turnCount % 2 == 0)
         {
