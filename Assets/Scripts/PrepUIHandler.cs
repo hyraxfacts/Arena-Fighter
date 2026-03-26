@@ -15,7 +15,7 @@ public class PrepUIHandler : MonoBehaviour
         isStanceSelected = false;
 
         roundCounterText.text = ("Round " + GameManager.Instance.currentStage);
-        opponentText.text = ("Next opponent: " + GameManager.Instance.currentOpponent[GameManager.Instance.stagesCleared]);
+        opponentText.text = ("Next opponent: " + GameManager.Instance.currentOpponentName[GameManager.Instance.stagesCleared]);
     }
 
     public void SetMartialStance()

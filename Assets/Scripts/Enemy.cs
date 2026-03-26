@@ -2,38 +2,26 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int enemyHealth;
-    public bool isAlive;
-    public bool isDefending;
-    public int enemyStrength;
-    public int enemyDamage;
-    public float damageRange;
+    protected int enemyStrength;
+    protected int enemyDamage;
+    protected float damageRange;
+    protected float heavyDamageMult;
     public BattleManager battleManager;
 
+<<<<<<< Updated upstream
     protected virtual void EnemyTurn()
+=======
+    private void Start()
+>>>>>>> Stashed changes
     {
-        if (battleManager.turnCount % 2 == 0)
-        {
-            Attack();
-        }
-        else
-        {
-            Defend();
-        }
+        battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
     }
 
-    public void HealthCheck()
-    {
-        if (enemyHealth <= 0)
-        {
-            isAlive = false;
-        }
-    }
-
+    // Rolls random damage based on enemy stats
     protected void RandomDamage()
     {
-        int damageMin = (int)Mathf.Round(enemyStrength - (enemyStrength / damageRange));
-        int damageMax = (int)Mathf.Round(enemyStrength + (enemyStrength / damageRange));
+        int damageMin = Mathf.RoundToInt(enemyStrength - (enemyStrength * damageRange));
+        int damageMax = Mathf.RoundToInt(enemyStrength + (enemyStrength * damageRange));
 
         enemyDamage = Random.Range(damageMin, damageMax);
     }
@@ -41,10 +29,31 @@ public class Enemy : MonoBehaviour
     protected virtual void Attack()
     {
         RandomDamage();
+
+        battleManager.playerHealth -= enemyDamage;
+
+        battleManager.battleConsoleText.text = "Enemy deals " + enemyDamage + " damage!";
     }
 
     protected virtual void Defend()
     {
-        isDefending = true;
+        battleManager.isEnemyDefending = true;
+
+        battleManager.battleConsoleText.text = "Enemy is defending!";
+    }
+
+    protected virtual void HeavyAttack()
+    {
+        float tempDamage;
+
+        RandomDamage();
+
+        // Increases damage by a factor of the heavy damage multiplier
+        tempDamage = enemyDamage;
+        enemyDamage = Mathf.RoundToInt(tempDamage * heavyDamageMult);
+
+        battleManager.playerHealth -= enemyDamage;
+
+        battleManager.battleConsoleText.text = "Enemy deals " + enemyDamage + " damage!";
     }
 }
