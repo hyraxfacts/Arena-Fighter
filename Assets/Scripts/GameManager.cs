@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public int stagesCleared;
 
     public int currentStage;
-    public string[] currentOpponent;
+    public string[] currentOpponentName;
 
     private void Awake()
     {

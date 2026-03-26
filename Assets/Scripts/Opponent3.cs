@@ -1,16 +1,47 @@
 using UnityEngine;
+using System.Collections;
 
-public class Opponent3 : MonoBehaviour
+public class Opponent3 : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        
+        enemyStrength = 25;
+        damageRange = 0.15f;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (battleManager.isBattleActive && !battleManager.isPlayerTurn)
+        {
+            StartCoroutine("PauseTurn");
+        }
+    }
+
+    public void EnemyTurn()
+    {
+        if (!battleManager.isPlayerTurn)
+        {
+            battleManager.isEnemyDefending = false;
+
+            // Attacks on even turns and defends on odd turns
+            if (battleManager.turnCount % 2 == 0)
+            {
+                Attack();
+            }
+            else
+            {
+                Defend();
+            }
+
+            battleManager.turnCount += 1;
+            battleManager.isPlayerTurn = true;
+        }
+    }
+
+    IEnumerator PauseTurn()
+    {
+        yield return new WaitForSeconds(2);
+
+        EnemyTurn();
     }
 }

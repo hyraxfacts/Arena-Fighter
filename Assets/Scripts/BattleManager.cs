@@ -1,28 +1,36 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    public bool isPlayerTurn;
+<<<<<<< Updated upstream
+    private bool isPlayerTurn;
     private bool isBattleGoing;
+=======
+    public bool isPlayerTurn;
+    public bool isBattleActive;
+>>>>>>> Stashed changes
     public int turnCount;
 
-    public TextMeshProUGUI battleConsoleText;
     public TextMeshProUGUI turnIndicatorText;
     public GameObject gameOverScreen;
-    public GameObject opponent1;
-    public GameObject opponent2;
-    public GameObject opponent3;
+<<<<<<< Updated upstream
+=======
+    public GameObject victoryScreen;
+    public GameObject[] opponent;
+    public GameObject currentOpponent;
 
     public Button attackButton;
     public Button chargeButton;
     public Button magicButton;
     public Button defendButton;
+>>>>>>> Stashed changes
 
-    public Enemy enemy;
+    public bool isEnemyDefending;
 
     private int playerDamage;
+<<<<<<< Updated upstream
+=======
     public int playerStrength;
     public float damageRange;
     private int magicDamage;
@@ -31,14 +39,24 @@ public class BattleManager : MonoBehaviour
     private bool isMagicCharged;
     public float playerDefense;
     public int playerHealth;
+    public int enemyHealth;
+    public bool hasWon;
+>>>>>>> Stashed changes
 
     private void Start()
     {
         turnCount = 0;
+<<<<<<< Updated upstream
         isBattleGoing = true;
+=======
+        isBattleActive= true;
         isPlayerTurn = true;
+        hasWon = false;
         playerHealth = 100;
+        enemyHealth = 100;
         battleConsoleText.text = ("The battle has begun!");
+
+        currentOpponent = opponent[GameManager.Instance.stagesCleared];
 
         if (GameManager.Instance.battleStance == 0)
         {
@@ -73,22 +91,13 @@ public class BattleManager : MonoBehaviour
         }
 
         // Loads current opponent
-        if (GameManager.Instance.currentStage == 1)
+        Instantiate<GameObject>(currentOpponent, currentOpponent.transform.position, currentOpponent.transform.rotation);
+
+        if (GameManager.Instance.currentStage > opponent.Length)
         {
-            Instantiate<GameObject>(opponent1, opponent1.transform.position, opponent1.transform.rotation);
+            Debug.Log("Invalid stage");
         }
-        else if (GameManager.Instance.currentStage == 2)
-        {
-            Instantiate<GameObject>(opponent2, opponent2.transform.position, opponent2.transform.rotation);
-        }
-        else if (GameManager.Instance.currentStage == 3)
-        {
-            Instantiate<GameObject>(opponent3, opponent3.transform.position, opponent3.transform.rotation);
-        }
-        else
-        {
-            Debug.Log("Stage invalid");
-        }
+>>>>>>> Stashed changes
     }
 
 
@@ -97,29 +106,40 @@ public class BattleManager : MonoBehaviour
         if (isPlayerTurn)
         {
             turnIndicatorText.text = "Your Turn";
-
-            ActionUIInteractable();
         }
         else
         {
             turnIndicatorText.text = "Opponent's Turn";
-
-            ActionUIUninteractable();
         }
 
-        if (playerHealth <= 0)
+        if (!isBattleGoing)
         {
+            isBattleActive = false;
             gameOverScreen.SetActive(true);
+<<<<<<< Updated upstream
+=======
+
+            GameManager.Instance.stagesCleared = 0;
+            GameManager.Instance.UpdateCurrentStage();
 
             ActionUIUninteractable();
+>>>>>>> Stashed changes
+        }
+
+        // hasWon insures victory only happens once
+        if (enemyHealth <= 0 && !hasWon)
+        {
+            Victory();
         }
     }
 
-    // Generates random damage number based on player stats
     public void RandomDamage()
     {
-        int damageMin = (int)Mathf.Round(playerStrength - (playerStrength / damageRange));
-        int damageMax = (int)Mathf.Round(playerStrength + (playerStrength / damageRange));
+<<<<<<< Updated upstream
+        playerDamage = Random.Range(10, 20);
+=======
+        int damageMin = (int)Mathf.Round(playerStrength - (playerStrength * damageRange));
+        int damageMax = (int)Mathf.Round(playerStrength + (playerStrength * damageRange));
 
         playerDamage = Random.Range(damageMin, damageMax);
     }
@@ -127,45 +147,44 @@ public class BattleManager : MonoBehaviour
     // Generates random damage number based on magic stats
     public void RandomMagicDamage()
     {
-        int damageMin = (int)Mathf.Round(magicStrength - (magicStrength / magicDamageRange));
-        int damageMax = (int)Mathf.Round(magicStrength + (magicStrength / magicDamageRange));
+        int damageMin = (int)Mathf.Round(magicStrength - (magicStrength * magicDamageRange));
+        int damageMax = (int)Mathf.Round(magicStrength + (magicStrength * magicDamageRange));
 
         magicDamage = Random.Range(damageMin, damageMax);
+>>>>>>> Stashed changes
     }
 
     public void Attack()
     {
-        if (isPlayerTurn)
+        RandomDamage();
+
+        if (enemy.isDefending)
         {
+<<<<<<< Updated upstream
+            playerDamage /= 2;
+=======
             // Rolls for damage
             RandomDamage();
 
             // Reduce damage dealt if enemy is defending
-            if (enemy.isDefending)
+            if (isEnemyDefending)
             {
                 playerDamage /= 2;
             }
 
             // Enemy takes damage
-            enemy.enemyHealth -= playerDamage;
+            enemyHealth -= playerDamage;
 
             battleConsoleText.text = ("You deal " + playerDamage + " damage!");
 
             isPlayerTurn = false;
+>>>>>>> Stashed changes
         }
-        else
-        {
-            Debug.Log("It is not your turn!");
-        }
-    }
 
-    // Does nothing but allow magic to be used next turn
-    public void ChargeMagic()
-    {
-        if (isPlayerTurn)
-        {
-            isMagicCharged = true;
+        enemy.enemyHealth -= playerDamage;
 
+<<<<<<< Updated upstream
+=======
             battleConsoleText.text = ("You charge your magic");
 
             isPlayerTurn = false;
@@ -186,13 +205,13 @@ public class BattleManager : MonoBehaviour
                 RandomMagicDamage();
 
                 // Reduce damage dealt if enemy is defending
-                if (enemy.isDefending)
+                if (isEnemyDefending)
                 {
                     magicDamage /= 2;
                 }
 
                 // Enemy takes damage
-                enemy.enemyHealth -= magicDamage;
+                enemyHealth -= magicDamage;
 
                 battleConsoleText.text = ("You deal " + magicDamage + " damage!");
 
@@ -249,5 +268,19 @@ public class BattleManager : MonoBehaviour
         chargeButton.interactable = false;
         magicButton.interactable = false;
         defendButton.interactable = false;
+>>>>>>> Stashed changes
+    }
+
+    private void Victory()
+    {
+        isBattleActive = false;
+        victoryScreen.SetActive(true);
+
+        GameManager.Instance.stagesCleared += 1;
+        GameManager.Instance.UpdateCurrentStage();
+
+        ActionUIUninteractable();
+
+        hasWon = true;
     }
 }

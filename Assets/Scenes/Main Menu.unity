@@ -1485,7 +1485,7 @@ MonoBehaviour:
   battleStance: 0
   stagesCleared: 0
   currentStage: 0
-  currentOpponent:
+  currentOpponentName:
   - Guy Who Woke Up Angry
   - Your Most Hated Neighbor
   - Guy Who is Diametrically Opposed to Your Political Viewpoint
