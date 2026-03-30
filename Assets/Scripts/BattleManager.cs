@@ -1,21 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-<<<<<<< Updated upstream
-    private bool isPlayerTurn;
-    private bool isBattleGoing;
-=======
     public bool isPlayerTurn;
     public bool isBattleActive;
->>>>>>> Stashed changes
+
     public int turnCount;
 
     public TextMeshProUGUI turnIndicatorText;
+    public TextMeshProUGUI battleConsoleText;
     public GameObject gameOverScreen;
-<<<<<<< Updated upstream
-=======
+
     public GameObject victoryScreen;
     public GameObject[] opponent;
     public GameObject currentOpponent;
@@ -24,13 +21,11 @@ public class BattleManager : MonoBehaviour
     public Button chargeButton;
     public Button magicButton;
     public Button defendButton;
->>>>>>> Stashed changes
 
     public bool isEnemyDefending;
 
     private int playerDamage;
-<<<<<<< Updated upstream
-=======
+
     public int playerStrength;
     public float damageRange;
     private int magicDamage;
@@ -41,14 +36,12 @@ public class BattleManager : MonoBehaviour
     public int playerHealth;
     public int enemyHealth;
     public bool hasWon;
->>>>>>> Stashed changes
+
 
     private void Start()
     {
         turnCount = 0;
-<<<<<<< Updated upstream
-        isBattleGoing = true;
-=======
+
         isBattleActive= true;
         isPlayerTurn = true;
         hasWon = false;
@@ -97,7 +90,7 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("Invalid stage");
         }
->>>>>>> Stashed changes
+
     }
 
 
@@ -106,24 +99,24 @@ public class BattleManager : MonoBehaviour
         if (isPlayerTurn)
         {
             turnIndicatorText.text = "Your Turn";
+            ActionUIInteractable();
         }
         else
         {
             turnIndicatorText.text = "Opponent's Turn";
+
+            ActionUIUninteractable();
         }
 
-        if (!isBattleGoing)
+        if (playerHealth <= 0)
         {
             isBattleActive = false;
             gameOverScreen.SetActive(true);
-<<<<<<< Updated upstream
-=======
 
             GameManager.Instance.stagesCleared = 0;
             GameManager.Instance.UpdateCurrentStage();
 
             ActionUIUninteractable();
->>>>>>> Stashed changes
         }
 
         // hasWon insures victory only happens once
@@ -132,12 +125,10 @@ public class BattleManager : MonoBehaviour
             Victory();
         }
     }
-
+     
+    // Generates random damage number based on player stats
     public void RandomDamage()
     {
-<<<<<<< Updated upstream
-        playerDamage = Random.Range(10, 20);
-=======
         int damageMin = (int)Mathf.Round(playerStrength - (playerStrength * damageRange));
         int damageMax = (int)Mathf.Round(playerStrength + (playerStrength * damageRange));
 
@@ -151,18 +142,13 @@ public class BattleManager : MonoBehaviour
         int damageMax = (int)Mathf.Round(magicStrength + (magicStrength * magicDamageRange));
 
         magicDamage = Random.Range(damageMin, damageMax);
->>>>>>> Stashed changes
     }
 
     public void Attack()
     {
-        RandomDamage();
-
-        if (enemy.isDefending)
+        if (isPlayerTurn && isBattleActive)
         {
-<<<<<<< Updated upstream
-            playerDamage /= 2;
-=======
+
             // Rolls for damage
             RandomDamage();
 
@@ -178,13 +164,19 @@ public class BattleManager : MonoBehaviour
             battleConsoleText.text = ("You deal " + playerDamage + " damage!");
 
             isPlayerTurn = false;
->>>>>>> Stashed changes
         }
+        else
+        {
+            Debug.Log("It is not your turn!");
+        }
+    }
 
-        enemy.enemyHealth -= playerDamage;
+    public void Charge()
+    {
+        if (isPlayerTurn && isBattleActive)
+        {
+            isMagicCharged = true;
 
-<<<<<<< Updated upstream
-=======
             battleConsoleText.text = ("You charge your magic");
 
             isPlayerTurn = false;
@@ -217,6 +209,8 @@ public class BattleManager : MonoBehaviour
 
                 // Magic needs to be charged again
                 isMagicCharged = false;
+
+                isPlayerTurn = false;
             }
             else
             {
@@ -268,7 +262,6 @@ public class BattleManager : MonoBehaviour
         chargeButton.interactable = false;
         magicButton.interactable = false;
         defendButton.interactable = false;
->>>>>>> Stashed changes
     }
 
     private void Victory()

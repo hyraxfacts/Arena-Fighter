@@ -7,12 +7,7 @@ public class Enemy : MonoBehaviour
     protected float damageRange;
     protected float heavyDamageMult;
     public BattleManager battleManager;
-
-<<<<<<< Updated upstream
-    protected virtual void EnemyTurn()
-=======
     private void Start()
->>>>>>> Stashed changes
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
     }
@@ -28,7 +23,13 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Attack()
     {
+        float tempDamage;
+
         RandomDamage();
+
+        tempDamage = enemyDamage / battleManager.playerDefense;
+
+        enemyDamage = Mathf.RoundToInt(tempDamage);
 
         battleManager.playerHealth -= enemyDamage;
 
