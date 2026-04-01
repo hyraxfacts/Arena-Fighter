@@ -6,14 +6,18 @@ public class BattleUIHandler : MonoBehaviour
 {
     public TextMeshProUGUI battleCounterText;
     public TextMeshProUGUI opponentNameText;
+    public TextMeshProUGUI playerHealthUI;
+    public TextMeshProUGUI opponentHealthUI;
+
+    private BattleManager battleManager;
 
     private void Start()
     {
+        battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+
         battleCounterText.text = ("Round " + GameManager.Instance.currentStage);
         opponentNameText.text = (GameManager.Instance.currentOpponentName[GameManager.Instance.stagesCleared]);
     }
-<<<<<<< Updated upstream
-=======
 
     private void Update()
     {
@@ -30,5 +34,4 @@ public class BattleUIHandler : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
->>>>>>> Stashed changes
 }

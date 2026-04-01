@@ -5,15 +5,15 @@ public class Opponent1 : Enemy
 {
     void Awake()
     {
-        enemyStrength = 10;
-        damageRange = 0.3f;
+        enemyStrength = 15;
+        damageRange = 0.2f;
     }
 
     private void Update()
     {
         if (battleManager.isBattleActive && !battleManager.isPlayerTurn)
         {
-            StartCoroutine("PauseTurn");
+            Invoke("EnemyTurn", 2);
         }
     }
 
@@ -36,12 +36,5 @@ public class Opponent1 : Enemy
             battleManager.turnCount += 1;
             battleManager.isPlayerTurn = true;
         }
-    }
-
-    IEnumerator PauseTurn()
-    {
-        yield return new WaitForSeconds(2);
-
-        EnemyTurn();
     }
 }

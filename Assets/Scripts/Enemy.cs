@@ -4,15 +4,12 @@ public class Enemy : MonoBehaviour
 {
     protected int enemyStrength;
     protected int enemyDamage;
+    protected int randomNum;
     protected float damageRange;
     protected float heavyDamageMult;
     public BattleManager battleManager;
 
-<<<<<<< Updated upstream
-    protected virtual void EnemyTurn()
-=======
     private void Start()
->>>>>>> Stashed changes
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
     }
@@ -26,9 +23,20 @@ public class Enemy : MonoBehaviour
         enemyDamage = Random.Range(damageMin, damageMax);
     }
 
+    protected void RandomNumber()
+    {
+        randomNum = Random.Range(1, 2);
+    }
+
     protected virtual void Attack()
     {
+        float tempDamage;
+
         RandomDamage();
+
+        tempDamage = enemyDamage * battleManager.playerDefense;
+
+        enemyDamage = Mathf.RoundToInt(tempDamage);
 
         battleManager.playerHealth -= enemyDamage;
 
@@ -50,10 +58,10 @@ public class Enemy : MonoBehaviour
 
         // Increases damage by a factor of the heavy damage multiplier
         tempDamage = enemyDamage;
-        enemyDamage = Mathf.RoundToInt(tempDamage * heavyDamageMult);
+        enemyDamage = Mathf.RoundToInt(tempDamage * heavyDamageMult * battleManager.playerDefense);
 
         battleManager.playerHealth -= enemyDamage;
 
-        battleManager.battleConsoleText.text = "Enemy deals " + enemyDamage + " damage!";
+        battleManager.battleConsoleText.text = "Enemy heavy attack deals " + enemyDamage + " damage!";
     }
 }

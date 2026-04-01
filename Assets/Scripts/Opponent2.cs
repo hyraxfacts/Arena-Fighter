@@ -5,8 +5,9 @@ public class Opponent2 : Enemy
 {
     void Awake()
     {
-        enemyStrength = 20;
+        enemyStrength = 10;
         damageRange = 0.2f;
+        heavyDamageMult = 1.15f;
     }
 
     private void Update()
@@ -23,14 +24,14 @@ public class Opponent2 : Enemy
         {
             battleManager.isEnemyDefending = false;
 
-            // Attacks on even turns and defends on odd turns
+            // Attack and heavy attack alternate turns
             if (battleManager.turnCount % 2 == 0)
             {
-                Attack();
+                HeavyAttack();
             }
             else
             {
-                Defend();
+                Attack();
             }
 
             battleManager.turnCount += 1;
