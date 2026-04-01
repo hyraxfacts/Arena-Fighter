@@ -2,14 +2,25 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class MenuUIHandler : MonoBehaviour
 {
     public GameObject continueButton;
 
+    private void Start()
+    {
+        // Shows continue button only if save data is found
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            continueButton.SetActive(true);
+        }
+    }
+
     public void ContinueSave()
     {
-        // Save file loading goes here
+        GameManager.Instance.LoadData();
 
         SceneManager.LoadScene(1);
     }
