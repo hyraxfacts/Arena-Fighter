@@ -54,28 +54,28 @@ public class BattleManager : MonoBehaviour
         if (GameManager.Instance.battleStance == 0)
         {
             // Sets player stats for Martial stance
-            playerStrength = 25;
+            playerStrength = 17;
             damageRange = 0.15f;
-            magicStrength = 30;
-            magicDamageRange = 0.3f;
+            magicStrength = 20;
+            magicDamageRange = 0.5f;
             playerDefense = 0.8f;
         }
         else if (GameManager.Instance.battleStance == 1)
         {
             // Sets player stats for Balanced stance
-            playerStrength = 17;
+            playerStrength = 12;
             damageRange = 0.25f;
-            magicStrength = 40;
+            magicStrength = 23;
             magicDamageRange = 0.4f;
             playerDefense = 0.9f;
         }
         else if (GameManager.Instance.battleStance == 2)
         {
             // Sets player stats for Magic stance
-            playerStrength = 10;
+            playerStrength = 8;
             damageRange = 0.3f;
-            magicStrength = 50;
-            magicDamageRange = 0.5f;
+            magicStrength = 30;
+            magicDamageRange = 0.3f;
             playerDefense = 0.95f;
         }
         else
