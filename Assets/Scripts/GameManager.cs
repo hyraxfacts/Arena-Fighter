@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    // ENCAPSULATION
+    public static GameManager Instance { get; private set; }
 
     public int battleStance;
     public int stagesCleared;

@@ -1,13 +1,14 @@
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{
+{   // INHERITANCE
+    // ENCAPSULATION
     protected int enemyStrength;
     protected int enemyDamage;
     protected int randomNum;
     protected float damageRange;
     protected float heavyDamageMult;
-    public BattleManager battleManager;
+    protected BattleManager battleManager;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Rolls random damage based on enemy stats
+    // ABSTRACTION
     protected void RandomDamage()
     {
         int damageMin = Mathf.RoundToInt(enemyStrength - (enemyStrength * damageRange));
@@ -28,7 +30,7 @@ public class Enemy : MonoBehaviour
         randomNum = Random.Range(1, 2);
     }
 
-    protected virtual void Attack()
+    protected void Attack()
     {
         float tempDamage;
 
@@ -38,19 +40,25 @@ public class Enemy : MonoBehaviour
 
         enemyDamage = Mathf.RoundToInt(tempDamage);
 
+        // Reduce damage dealt if player is defending
+        if (battleManager.isPlayerDefending)
+        {
+            enemyDamage /= 2;
+        }
+
         battleManager.playerHealth -= enemyDamage;
 
         battleManager.battleConsoleText.text = "Enemy deals " + enemyDamage + " damage!";
     }
 
-    protected virtual void Defend()
+    protected void Defend()
     {
         battleManager.isEnemyDefending = true;
 
         battleManager.battleConsoleText.text = "Enemy is defending!";
     }
 
-    protected virtual void HeavyAttack()
+    public virtual void HeavyAttack()
     {
         float tempDamage;
 
@@ -59,6 +67,12 @@ public class Enemy : MonoBehaviour
         // Increases damage by a factor of the heavy damage multiplier
         tempDamage = enemyDamage;
         enemyDamage = Mathf.RoundToInt(tempDamage * heavyDamageMult * battleManager.playerDefense);
+
+        // Reduce damage dealt if player is defending
+        if (battleManager.isPlayerDefending)
+        {
+            enemyDamage /= 2;
+        }
 
         battleManager.playerHealth -= enemyDamage;
 

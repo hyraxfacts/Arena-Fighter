@@ -2807,7 +2807,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1636490911}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1965088282}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: Defend
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1636490911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3665,10 +3677,7 @@ MonoBehaviour:
   magicButton: {fileID: 483982802}
   defendButton: {fileID: 1636490910}
   isEnemyDefending: 0
-  playerStrength: 0
-  damageRange: 0
-  magicStrength: 0
-  magicDamageRange: 0
+  isPlayerDefending: 0
   playerDefense: 0
   playerHealth: 0
   enemyHealth: 0

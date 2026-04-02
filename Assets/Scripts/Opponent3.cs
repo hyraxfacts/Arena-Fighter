@@ -7,7 +7,7 @@ public class Opponent3 : Enemy
     {
         enemyStrength = 20;
         damageRange = 0.1f;
-        heavyDamageMult = 1.2f;
+        heavyDamageMult = 1.5f;
     }
 
     private void Update()
@@ -18,7 +18,7 @@ public class Opponent3 : Enemy
         }
     }
 
-    public void EnemyTurn()
+    private void EnemyTurn()
     {
         if (!battleManager.isPlayerTurn)
         {
@@ -60,5 +60,21 @@ public class Opponent3 : Enemy
         yield return new WaitForSeconds(2);
 
         EnemyTurn();
+    }
+    
+    // POLYMORPHISM
+    public override void HeavyAttack()
+    {
+        float tempDamage;
+
+        RandomDamage();
+
+        // Increases damage by a factor of the heavy damage multiplier
+        tempDamage = enemyDamage;
+        enemyDamage = Mathf.RoundToInt(tempDamage * heavyDamageMult * battleManager.playerDefense);
+
+        battleManager.playerHealth -= enemyDamage;
+
+        battleManager.battleConsoleText.text = "Enemy deals " + enemyDamage + " magic damage!";
     }
 }

@@ -18,7 +18,7 @@ public class Opponent2 : Enemy
         }
     }
 
-    public void EnemyTurn()
+    private void EnemyTurn()
     {
         if (!battleManager.isPlayerTurn)
         {

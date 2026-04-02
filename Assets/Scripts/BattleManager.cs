@@ -9,28 +9,38 @@ public class BattleManager : MonoBehaviour
 
     public int turnCount;
 
-    public TextMeshProUGUI turnIndicatorText;
+    [SerializeField]
+    private TextMeshProUGUI turnIndicatorText;
     public TextMeshProUGUI battleConsoleText;
-    public GameObject gameOverScreen;
 
-    public GameObject victoryScreen;
-    public GameObject[] opponent;
-    public GameObject currentOpponent;
+    [SerializeField]
+    private GameObject gameOverScreen;
+    [SerializeField]
+    private GameObject victoryScreen;
+    [SerializeField]
+    private GameObject[] opponent;
+    [SerializeField]
+    private GameObject currentOpponent;
 
-    public Button attackButton;
-    public Button chargeButton;
-    public Button magicButton;
-    public Button defendButton;
+    [SerializeField]
+    private Button attackButton;
+    [SerializeField]
+    private Button chargeButton;
+    [SerializeField]
+    private Button magicButton;
+    [SerializeField]
+    private Button defendButton;
 
     public bool isEnemyDefending;
+    public bool isPlayerDefending;
 
     private int playerDamage;
 
-    public int playerStrength;
-    public float damageRange;
+    private int playerStrength;
+    private float damageRange;
     private int magicDamage;
-    public int magicStrength;
-    public float magicDamageRange;
+    private int magicStrength;
+    private float magicDamageRange;
     private bool isMagicCharged;
     public float playerDefense;
     public int playerHealth;
@@ -99,35 +109,31 @@ public class BattleManager : MonoBehaviour
         if (isPlayerTurn)
         {
             turnIndicatorText.text = "Your Turn";
-            ActionUIInteractable();
+
+            ActionUIInteractable(); // ABSTRACTION
         }
         else
         {
             turnIndicatorText.text = "Opponent's Turn";
 
-            ActionUIUninteractable();
+            ActionUIUninteractable(); // ABSTRACTION
         }
 
         if (playerHealth <= 0)
         {
-            isBattleActive = false;
-            gameOverScreen.SetActive(true);
-
-            GameManager.Instance.stagesCleared = 0;
-            GameManager.Instance.UpdateCurrentStage();
-
-            ActionUIUninteractable();
+            Defeat(); // ABSTRACTION
         }
 
         // hasWon insures victory only happens once
         if (enemyHealth <= 0 && !hasWon)
         {
-            Victory();
+            Victory(); // ABSTRACTION
         }
+
     }
      
     // Generates random damage number based on player stats
-    public void RandomDamage()
+    private void RandomDamage()
     {
         int damageMin = (int)Mathf.Round(playerStrength - (playerStrength * damageRange));
         int damageMax = (int)Mathf.Round(playerStrength + (playerStrength * damageRange));
@@ -136,7 +142,7 @@ public class BattleManager : MonoBehaviour
     }
 
     // Generates random damage number based on magic stats
-    public void RandomMagicDamage()
+    private void RandomMagicDamage()
     {
         int damageMin = (int)Mathf.Round(magicStrength - (magicStrength * magicDamageRange));
         int damageMax = (int)Mathf.Round(magicStrength + (magicStrength * magicDamageRange));
@@ -148,9 +154,10 @@ public class BattleManager : MonoBehaviour
     {
         if (isPlayerTurn && isBattleActive)
         {
+            isPlayerDefending = false;
 
             // Rolls for damage
-            RandomDamage();
+            RandomDamage(); // ABSTRACTION
 
             // Reduce damage dealt if enemy is defending
             if (isEnemyDefending)
@@ -175,6 +182,8 @@ public class BattleManager : MonoBehaviour
     {
         if (isPlayerTurn && isBattleActive)
         {
+            isPlayerDefending = false;
+
             isMagicCharged = true;
 
             battleConsoleText.text = ("You charge your magic");
@@ -193,6 +202,8 @@ public class BattleManager : MonoBehaviour
         {
             if (isMagicCharged)
             {
+                isPlayerDefending = false;
+
                 // Rolls for damage
                 RandomMagicDamage();
 
@@ -230,7 +241,7 @@ public class BattleManager : MonoBehaviour
     {
         if (isPlayerTurn)
         {
-            playerDefense = 0.95f;
+            isPlayerDefending = true;
             battleConsoleText.text = ("You defend!");
 
             isPlayerTurn = false;
@@ -262,6 +273,17 @@ public class BattleManager : MonoBehaviour
         chargeButton.interactable = false;
         magicButton.interactable = false;
         defendButton.interactable = false;
+    }
+
+    private void Defeat()
+    {
+        isBattleActive = false;
+        gameOverScreen.SetActive(true);
+
+        GameManager.Instance.stagesCleared = 0;
+        GameManager.Instance.UpdateCurrentStage();
+
+        ActionUIUninteractable();
     }
 
     private void Victory()
