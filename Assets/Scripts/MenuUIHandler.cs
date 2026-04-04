@@ -6,7 +6,8 @@ using System.IO;
 
 public class MenuUIHandler : MonoBehaviour
 {
-    public GameObject continueButton;
+    [SerializeField]
+    private GameObject continueButton;
 
     private void Start()
     {

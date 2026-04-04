@@ -12,7 +12,7 @@ public class PrepUIHandler : MonoBehaviour
     public GameObject prepUI;
     public GameObject victoryUI;
     public GameObject pauseMenu;
-    public bool isStanceSelected;
+    private bool isStanceSelected;
 
 
     private void Start()
