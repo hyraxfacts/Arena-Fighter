@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {   // INHERITANCE
-    // ENCAPSULATION
     protected int enemyStrength;
     protected int enemyDamage;
     protected int randomNum;
