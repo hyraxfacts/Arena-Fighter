@@ -10,6 +10,7 @@ public class Opponent2 : Enemy
         heavyDamageMult = 1.15f;
     }
 
+    /*
     private void Update()
     {
         if (battleManager.isBattleActive && !battleManager.isPlayerTurn)
@@ -45,4 +46,5 @@ public class Opponent2 : Enemy
 
         EnemyTurn();
     }
+    */
 }

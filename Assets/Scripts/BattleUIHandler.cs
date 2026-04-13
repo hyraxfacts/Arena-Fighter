@@ -21,8 +21,8 @@ public class BattleUIHandler : MonoBehaviour
 
     private void Update()
     {
-        playerHealthUI.text = (battleManager.playerHealth + " / 100");
-        opponentHealthUI.text = (battleManager.enemyHealth + " / 100");
+        //playerHealthUI.text = (battleManager.playerHealth + " / 100");
+        //opponentHealthUI.text = (battleManager.enemyHealth + " / 100");
     }
 
     public void Continue()

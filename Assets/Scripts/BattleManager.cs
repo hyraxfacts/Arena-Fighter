@@ -1,301 +1,39 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    public bool isPlayerTurn;
-    public bool isBattleActive;
-
-    public int turnCount;
-
-    [SerializeField]
-    private TextMeshProUGUI turnIndicatorText;
-    public TextMeshProUGUI battleConsoleText;
-
-    [SerializeField]
-    private GameObject gameOverScreen;
-    [SerializeField]
-    private GameObject victoryScreen;
-    [SerializeField]
-    private GameObject[] opponent;
-    [SerializeField]
-    private GameObject currentOpponent;
-
-    [SerializeField]
-    private Button attackButton;
-    [SerializeField]
-    private Button chargeButton;
-    [SerializeField]
-    private Button magicButton;
-    [SerializeField]
-    private Button defendButton;
-
-    public bool isEnemyDefending;
-    public bool isPlayerDefending;
-
-    private int playerDamage;
-
-    private int playerStrength;
-    private float damageRange;
-    private int magicDamage;
-    private int magicStrength;
-    private float magicDamageRange;
-    private bool isMagicCharged;
-    public float playerDefense;
-    public int playerHealth;
-    public int enemyHealth;
-    public bool hasWon;
+    public BattleState CurrentState { get; private set; }
+    public PlayerTurnState PlayerTurnState { get; private set; }
+    public EnemyTurnState EnemyTurnState { get; private set; }
 
 
     private void Start()
     {
-        turnCount = 0;
+        // Initialize all states
+        PlayerTurnState = new PlayerTurnState(this);
+        EnemyTurnState = new EnemyTurnState(this);
 
-        isBattleActive= true;
-        isPlayerTurn = true;
-        hasWon = false;
-        playerHealth = 100;
-        enemyHealth = 100;
-        battleConsoleText.text = ("The battle has begun!");
-
-        currentOpponent = opponent[GameManager.Instance.stagesCleared];
-
-        if (GameManager.Instance.battleStance == 0)
-        {
-            // Sets player stats for Martial stance
-            playerStrength = 17;
-            damageRange = 0.15f;
-            magicStrength = 20;
-            magicDamageRange = 0.5f;
-            playerDefense = 0.8f;
-        }
-        else if (GameManager.Instance.battleStance == 1)
-        {
-            // Sets player stats for Balanced stance
-            playerStrength = 12;
-            damageRange = 0.25f;
-            magicStrength = 23;
-            magicDamageRange = 0.4f;
-            playerDefense = 0.9f;
-        }
-        else if (GameManager.Instance.battleStance == 2)
-        {
-            // Sets player stats for Magic stance
-            playerStrength = 8;
-            damageRange = 0.3f;
-            magicStrength = 30;
-            magicDamageRange = 0.3f;
-            playerDefense = 0.95f;
-        }
-        else
-        {
-            Debug.Log("Invalid battle stance");
-        }
-
-        // Loads current opponent
-        Instantiate<GameObject>(currentOpponent, currentOpponent.transform.position, currentOpponent.transform.rotation);
-
-        if (GameManager.Instance.currentStage > opponent.Length)
-        {
-            Debug.Log("Invalid stage");
-        }
+        // Start the battle
+        ChangeState(PlayerTurnState);
 
     }
-
 
     void Update()
     {
-        if (isPlayerTurn)
-        {
-            turnIndicatorText.text = "Your Turn";
-
-            ActionUIInteractable(); // ABSTRACTION
-        }
-        else
-        {
-            turnIndicatorText.text = "Opponent's Turn";
-
-            ActionUIUninteractable(); // ABSTRACTION
-        }
-
-        if (playerHealth <= 0)
-        {
-            Defeat(); // ABSTRACTION
-        }
-
-        // hasWon insures victory only happens once
-        if (enemyHealth <= 0 && !hasWon)
-        {
-            Victory(); // ABSTRACTION
-        }
-
-    }
-     
-    // Generates random damage number based on player stats
-    private void RandomDamage()
-    {
-        int damageMin = (int)Mathf.Round(playerStrength - (playerStrength * damageRange));
-        int damageMax = (int)Mathf.Round(playerStrength + (playerStrength * damageRange));
-
-        playerDamage = Random.Range(damageMin, damageMax);
+        // We must update the current state every frame
+        CurrentState?.OnUpdate();
     }
 
-    // Generates random damage number based on magic stats
-    private void RandomMagicDamage()
+    public void ChangeState(BattleState newState)
     {
-        int damageMin = (int)Mathf.Round(magicStrength - (magicStrength * magicDamageRange));
-        int damageMax = (int)Mathf.Round(magicStrength + (magicStrength * magicDamageRange));
+        // Call OnExit on the current state before switching
+        CurrentState?.OnExit();
 
-        magicDamage = Random.Range(damageMin, damageMax);
-    }
+        // Switch to the new state
+        CurrentState = newState;
 
-    public void Attack()
-    {
-        if (isPlayerTurn && isBattleActive)
-        {
-            isPlayerDefending = false;
-
-            // Rolls for damage
-            RandomDamage(); // ABSTRACTION
-
-            // Reduce damage dealt if enemy is defending
-            if (isEnemyDefending)
-            {
-                playerDamage /= 2;
-            }
-
-            // Enemy takes damage
-            enemyHealth -= playerDamage;
-
-            battleConsoleText.text = ("You deal " + playerDamage + " damage!");
-
-            isPlayerTurn = false;
-        }
-        else
-        {
-            Debug.Log("It is not your turn!");
-        }
-    }
-
-    public void Charge()
-    {
-        if (isPlayerTurn && isBattleActive)
-        {
-            isPlayerDefending = false;
-
-            isMagicCharged = true;
-
-            battleConsoleText.text = ("You charge your magic");
-
-            isPlayerTurn = false;
-        }
-        else
-        {
-            Debug.Log("It is not your turn!");
-        }
-    }
-
-    public void MagicAttack()
-    {
-        if (isPlayerTurn)
-        {
-            if (isMagicCharged)
-            {
-                isPlayerDefending = false;
-
-                // Rolls for damage
-                RandomMagicDamage();
-
-                // Reduce damage dealt if enemy is defending
-                if (isEnemyDefending)
-                {
-                    magicDamage /= 2;
-                }
-
-                // Enemy takes damage
-                enemyHealth -= magicDamage;
-
-                battleConsoleText.text = ("You deal " + magicDamage + " damage!");
-
-                // Magic needs to be charged again
-                isMagicCharged = false;
-
-                isPlayerTurn = false;
-            }
-            else
-            {
-                battleConsoleText.text = ("Magic needs to be charged first!");
-                Debug.Log("Magic needs to be charged first!");
-            }
-        }
-        else
-        {
-            Debug.Log("It is not your turn!");
-        }
-    }
-
-    // Increases defense
-    // Needs to be turned off before next turn
-    public void Defend()
-    {
-        if (isPlayerTurn)
-        {
-            isPlayerDefending = true;
-            battleConsoleText.text = ("You defend!");
-
-            isPlayerTurn = false;
-        }
-        else
-        {
-            Debug.Log("It is not your turn!");
-        }
-    }
-
-    // Turns on action buttons
-    private void ActionUIInteractable()
-    {
-        attackButton.interactable = true;
-        chargeButton.interactable = true;
-        defendButton.interactable = true;
-        
-        // Keeps the magic button off if magic is not charged
-        if (isMagicCharged)
-        {
-            magicButton.interactable = true;
-        }    
-    }
-
-    // Turns off action buttons
-    private void ActionUIUninteractable()
-    {
-        attackButton.interactable = false;
-        chargeButton.interactable = false;
-        magicButton.interactable = false;
-        defendButton.interactable = false;
-    }
-
-    private void Defeat()
-    {
-        isBattleActive = false;
-        gameOverScreen.SetActive(true);
-
-        GameManager.Instance.stagesCleared = 0;
-        GameManager.Instance.UpdateCurrentStage();
-
-        ActionUIUninteractable();
-    }
-
-    private void Victory()
-    {
-        isBattleActive = false;
-        victoryScreen.SetActive(true);
-
-        GameManager.Instance.stagesCleared += 1;
-        GameManager.Instance.UpdateCurrentStage();
-
-        ActionUIUninteractable();
-
-        hasWon = true;
+        // Call OnEnter on the new state
+        CurrentState.OnEnter();
     }
 }

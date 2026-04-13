@@ -9,6 +9,7 @@ public class Opponent1 : Enemy
         damageRange = 0.2f;
     }
 
+    /*
     private void Update()
     {
         if (battleManager.isBattleActive && !battleManager.isPlayerTurn)
@@ -37,4 +38,5 @@ public class Opponent1 : Enemy
             battleManager.isPlayerTurn = true;
         }
     }
+    */
 }

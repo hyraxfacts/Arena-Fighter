@@ -9,7 +9,7 @@ public class Opponent3 : Enemy
         damageRange = 0.1f;
         heavyDamageMult = 1.5f;
     }
-
+/*
     private void Update()
     {
         if (battleManager.isBattleActive && !battleManager.isPlayerTurn)
@@ -77,4 +77,5 @@ public class Opponent3 : Enemy
 
         battleManager.battleConsoleText.text = "Enemy deals " + enemyDamage + " magic damage!";
     }
+*/
 }

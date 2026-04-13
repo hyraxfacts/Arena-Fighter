@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
         randomNum = Random.Range(1, 2);
     }
 
+    /*
     protected void Attack()
     {
         float tempDamage;
@@ -77,4 +78,5 @@ public class Enemy : MonoBehaviour
 
         battleManager.battleConsoleText.text = "Enemy heavy attack deals " + enemyDamage + " damage!";
     }
+    */
 }
