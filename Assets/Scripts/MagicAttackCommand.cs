@@ -13,6 +13,6 @@ public class MagicAttackCommand : ICommand
 
     public void Execute()
     {
-        _attacker.Attack(_target);
+        _attacker.MagicAttack(_target);
     }
 }

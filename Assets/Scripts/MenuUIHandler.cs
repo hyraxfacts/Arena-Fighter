@@ -28,7 +28,7 @@ public class MenuUIHandler : MonoBehaviour
 
     public void NewGame()
     {
-        // If save data is found, save file gets cleared here
+        // If save data is found, save file needs to be cleared here
 
         GameManager.Instance.stagesCleared = 0;
 

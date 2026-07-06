@@ -240,9 +240,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1965088282}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: Charge
+      - m_Target: {fileID: 176065494}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ChargeButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -522,6 +522,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88380663}
   m_CullTransparentMesh: 1
+--- !u!1 &176065493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 176065495}
+  - component: {fileID: 176065494}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &176065494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176065493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a5ad622f0a28140a6c0d04782dad03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  playerUnit: {fileID: 0}
+  enemyUnit: {fileID: 0}
+--- !u!4 &176065495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176065493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.43085, y: 2.57166, z: 2.66}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &209723686
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,9 +757,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1965088282}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: MagicAttack
+      - m_Target: {fileID: 176065494}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: MagicAttackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -886,7 +932,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604040955}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
@@ -938,7 +984,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -1608,9 +1654,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1965088282}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: Attack
+      - m_Target: {fileID: 176065494}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: AttackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1862,6 +1908,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -2808,9 +2855,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1965088282}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: Defend
+      - m_Target: {fileID: 176065494}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DefendButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3660,28 +3707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42eeb1a831307ef4c8d7a0cbd2178ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleManager
-  isPlayerTurn: 0
-  isBattleActive: 0
-  turnCount: 0
-  turnIndicatorText: {fileID: 602576275}
-  battleConsoleText: {fileID: 1202816322}
-  gameOverScreen: {fileID: 1466801141}
-  victoryScreen: {fileID: 209723686}
-  opponent:
-  - {fileID: 7680687742100463628, guid: fd981e81801fa1048a38d7a416487ced, type: 3}
-  - {fileID: 2121395005927718516, guid: 0d6e0a46768cdb6418f2f22e5c49b048, type: 3}
-  - {fileID: 4756599364642691302, guid: 1460fd0fe35024846a00bc97d2e8eae1, type: 3}
-  currentOpponent: {fileID: 0}
-  attackButton: {fileID: 898859492}
-  chargeButton: {fileID: 46890777}
-  magicButton: {fileID: 483982802}
-  defendButton: {fileID: 1636490910}
-  isEnemyDefending: 0
-  isPlayerDefending: 0
-  playerDefense: 0
-  playerHealth: 0
-  enemyHealth: 0
-  hasWon: 0
 --- !u!4 &1965088283
 Transform:
   m_ObjectHideFlags: 0
@@ -3956,3 +3981,4 @@ SceneRoots:
   - {fileID: 927816889}
   - {fileID: 1965088283}
   - {fileID: 1071369271}
+  - {fileID: 176065495}
