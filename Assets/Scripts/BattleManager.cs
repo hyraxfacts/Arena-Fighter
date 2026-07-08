@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -7,12 +8,27 @@ public class BattleManager : MonoBehaviour
     public PlayerTurnState PlayerTurnState { get; private set; }
     public EnemyTurnState EnemyTurnState { get; private set; }
 
+    public Button attackButton;
+    public Button chargeButton;
+    public Button magicButton;
+    public Button defendButton;
+
+    [SerializeField]
+    private GameObject[] opponent;
+    public GameObject currentOpponent;
+
 
     private void Start()
     {
         // Initialize all states
         PlayerTurnState = new PlayerTurnState(this);
         EnemyTurnState = new EnemyTurnState(this);
+
+        currentOpponent = opponent[GameManager.Instance.stagesCleared];
+
+        Debug.Log("BattleManager is spawning the enemy.");
+        // Loads current opponent
+        currentOpponent.SetActive(true);
 
         // Start the battle
         ChangeState(PlayerTurnState);

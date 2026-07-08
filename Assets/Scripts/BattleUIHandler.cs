@@ -10,10 +10,12 @@ public class BattleUIHandler : MonoBehaviour
     public TextMeshProUGUI opponentHealthUI;
 
     private BattleManager battleManager;
+    private Player player;
 
     private void Start()
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        player = GameObject.Find("Player").GetComponent<Player>();
 
         battleCounterText.text = ("Round " + GameManager.Instance.currentStage);
         opponentNameText.text = (GameManager.Instance.currentOpponentName[GameManager.Instance.stagesCleared]);
@@ -21,7 +23,7 @@ public class BattleUIHandler : MonoBehaviour
 
     private void Update()
     {
-        //playerHealthUI.text = (battleManager.playerHealth + " / 100");
+        playerHealthUI.text = (player.playerHealth + " / 100");
         //opponentHealthUI.text = (battleManager.enemyHealth + " / 100");
     }
 

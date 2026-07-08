@@ -5,6 +5,16 @@ public class InputManager : MonoBehaviour
     public Unit playerUnit;
     public Unit enemyUnit;
 
+    private BattleManager battleManager;
+
+    private void Start()
+    {
+        battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        playerUnit = GameObject.Find("Player").GetComponent<Unit>();
+        Debug.Log("InputManager is trying to find the enemy.");
+        enemyUnit = battleManager.currentOpponent.GetComponent<Unit>();
+    }
+
     public void AttackButton()
     {
         ICommand attackCommand = new AttackCommand(playerUnit, enemyUnit);

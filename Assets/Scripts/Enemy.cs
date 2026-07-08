@@ -1,7 +1,8 @@
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{   // INHERITANCE
+{
+    protected int enemyHealth = 100;
     protected int enemyStrength;
     protected int enemyDamage;
     protected int randomNum;

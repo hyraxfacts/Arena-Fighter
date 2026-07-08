@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4804411116464467399}
   - component: {fileID: 1364516950521346160}
   - component: {fileID: 8812082861417772919}
+  - component: {fileID: -5060190847133402764}
   m_Layer: 0
   m_Name: Opponent 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,10 +127,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa5327f5221bd7458ff6f589198d521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Opponent1
-  enemyHealth: 0
-  isAlive: 0
-  isDefending: 0
-  enemyStrength: 0
-  enemyDamage: 0
-  damageRange: 0
-  battleManager: {fileID: 0}
+--- !u!114 &-5060190847133402764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862438140663857061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9db3fc73a255143bf4877b1bb48ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Unit
