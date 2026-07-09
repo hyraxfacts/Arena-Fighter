@@ -71,7 +71,7 @@ public class PrepUIHandler : MonoBehaviour
         // Requires stance selection before battle start
         if (isStanceSelected)
         {
-            SceneManager.LoadScene(GameManager.Instance.currentStage + 1);
+            SceneManager.LoadScene(2);
         }
     }
     

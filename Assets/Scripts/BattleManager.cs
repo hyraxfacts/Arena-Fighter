@@ -8,6 +8,8 @@ public class BattleManager : MonoBehaviour
     public PlayerTurnState PlayerTurnState { get; private set; }
     public EnemyTurnState EnemyTurnState { get; private set; }
 
+    public int turnCount;
+
     public Button attackButton;
     public Button chargeButton;
     public Button magicButton;
@@ -17,6 +19,10 @@ public class BattleManager : MonoBehaviour
     private GameObject[] opponent;
     public GameObject currentOpponent;
 
+    [SerializeField]
+    private GameObject[] player;
+    public GameObject playerCurrentStance;
+
 
     private void Start()
     {
@@ -24,11 +30,17 @@ public class BattleManager : MonoBehaviour
         PlayerTurnState = new PlayerTurnState(this);
         EnemyTurnState = new EnemyTurnState(this);
 
+        turnCount = 0;
+
         currentOpponent = opponent[GameManager.Instance.stagesCleared];
 
         Debug.Log("BattleManager is spawning the enemy.");
         // Loads current opponent
-        currentOpponent.SetActive(true);
+        Instantiate<GameObject>(currentOpponent, currentOpponent.transform.position, currentOpponent.transform.rotation);
+
+        playerCurrentStance = player[GameManager.Instance.battleStance];
+        //Loads player's chosen stance
+        Instantiate<GameObject>(playerCurrentStance, playerCurrentStance.transform.position, playerCurrentStance.transform.rotation);
 
         // Start the battle
         ChangeState(PlayerTurnState);
@@ -37,7 +49,7 @@ public class BattleManager : MonoBehaviour
 
     void Update()
     {
-        // We must update the current state every frame
+        // Updates the current state every frame
         CurrentState?.OnUpdate();
     }
 

@@ -139,3 +139,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9db3fc73a255143bf4877b1bb48ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
+  unitData: {fileID: 11400000, guid: f841dd981cfff8946aa58adccdba851a, type: 2}
+  damageToDeal: 0

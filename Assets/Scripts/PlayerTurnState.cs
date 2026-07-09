@@ -4,18 +4,18 @@ public class PlayerTurnState : BattleState
 {
     public PlayerTurnState(BattleManager battleManager) : base(battleManager) { }
 
-    private bool isBattleManagerSet;
+    private bool isVariableAssigned;
     private BattleManager battleManager;
+    private Unit playerUnit;
+    private Unit enemyUnit;
 
     public override void OnEnter()
     {
         Debug.Log("Player Turn: START");
 
-        if (isBattleManagerSet == false)
-        {
-            battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-            isBattleManagerSet = true;
-        }
+        AssignVariables();
+
+        battleManager.turnCount++;
 
         ActionUIInteractable();
     }
@@ -58,5 +58,17 @@ public class PlayerTurnState : BattleState
         battleManager.chargeButton.interactable = false;
         battleManager.magicButton.interactable = false;
         battleManager.defendButton.interactable = false;
+    }
+
+    private void AssignVariables()
+    {
+        if (isVariableAssigned == false)
+        {
+            battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+            playerUnit = battleManager.playerCurrentStance.GetComponent<Unit>();
+            enemyUnit = battleManager.currentOpponent.GetComponent<Unit>();
+
+            isVariableAssigned = true;
+        }
     }
 }

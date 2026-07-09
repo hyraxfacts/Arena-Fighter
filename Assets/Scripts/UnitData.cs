@@ -5,10 +5,11 @@ public class UnitData : ScriptableObject
 {
     public string unitName;
     public int maxHP;
-    public int attackStrength;
-    public int attackDamageRange;
-    public int heavyDamageMult;
-    public int magicStrength;
-    public int magicDamageRange;
-    public int defense;
+    public float attackStrength;
+    public float attackDamageRange;
+    public float heavyDamageMult;
+    public float magicStrength;
+    public float magicDamageRange;
+    public float defense;
+    public bool isMagicCharged;
 }

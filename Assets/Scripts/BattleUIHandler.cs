@@ -10,21 +10,23 @@ public class BattleUIHandler : MonoBehaviour
     public TextMeshProUGUI opponentHealthUI;
 
     private BattleManager battleManager;
-    private Player player;
+    private Unit playerUnit;
+    private Unit enemyUnit;
 
     private void Start()
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        player = GameObject.Find("Player").GetComponent<Player>();
+        playerUnit = battleManager.playerCurrentStance.GetComponent<Unit>();
+        enemyUnit = battleManager.currentOpponent.GetComponent<Unit>();
 
         battleCounterText.text = ("Round " + GameManager.Instance.currentStage);
-        opponentNameText.text = (GameManager.Instance.currentOpponentName[GameManager.Instance.stagesCleared]);
+        opponentNameText.text = (enemyUnit.name);
     }
 
     private void Update()
     {
-        playerHealthUI.text = (player.playerHealth + " / 100");
-        //opponentHealthUI.text = (battleManager.enemyHealth + " / 100");
+        playerHealthUI.text = (playerUnit.currentHP + " / 100");
+        opponentHealthUI.text = (enemyUnit.currentHP + " / 100");
     }
 
     public void Continue()
