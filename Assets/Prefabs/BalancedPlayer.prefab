@@ -45,4 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
   unitData: {fileID: 11400000, guid: 5a2244103ebffdc49a121e89bdcbe7a6, type: 2}
+  currentHP: 100
   damageToDeal: 0

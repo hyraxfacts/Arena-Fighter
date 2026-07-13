@@ -18,6 +18,8 @@ public class EnemyTurnState : BattleState
 
         AssignVariables();
 
+        enemyUnit.isDefending = false;
+
         if (battleManager.turnCount % 2 == 0)
         {
             ICommand attackCommand = new AttackCommand(enemyUnit, playerUnit);

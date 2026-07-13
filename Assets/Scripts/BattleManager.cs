@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
 
     public int turnCount;
 
+    public bool isBattleActive;
+
     public Button attackButton;
     public Button chargeButton;
     public Button magicButton;
@@ -18,10 +20,20 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private GameObject[] opponent;
     public GameObject currentOpponent;
+    public Unit enemyUnit;
 
     [SerializeField]
     private GameObject[] player;
     public GameObject playerCurrentStance;
+    public Unit playerUnit;
+
+    [SerializeField]
+    private GameObject gameOverScreen;
+    private bool isGameOverActive = false;
+
+    [SerializeField]
+    private GameObject victoryScreen;
+    private bool isVictoryActive = false;
 
 
     private void Start()
@@ -33,22 +45,33 @@ public class BattleManager : MonoBehaviour
         turnCount = 0;
 
         currentOpponent = opponent[GameManager.Instance.stagesCleared];
-
-        Debug.Log("BattleManager is spawning the enemy.");
         // Loads current opponent
-        Instantiate<GameObject>(currentOpponent, currentOpponent.transform.position, currentOpponent.transform.rotation);
+        currentOpponent.SetActive(true);
+        enemyUnit = currentOpponent.GetComponent<Unit>();
 
         playerCurrentStance = player[GameManager.Instance.battleStance];
-        //Loads player's chosen stance
-        Instantiate<GameObject>(playerCurrentStance, playerCurrentStance.transform.position, playerCurrentStance.transform.rotation);
+        // Loads player's chosen stance
+        playerCurrentStance.SetActive(true);
+        playerUnit = playerCurrentStance.GetComponent<Unit>();
 
         // Start the battle
         ChangeState(PlayerTurnState);
-
     }
 
     void Update()
     {
+        // Checks for lose condition
+        if (playerUnit.currentHP <= 0 && isGameOverActive == false)
+        {
+            Defeat();
+        }
+        
+        // Checks for victory condition
+        if (enemyUnit.currentHP <= 0 && isVictoryActive == false)
+        {
+            Victory();
+        }    
+
         // Updates the current state every frame
         CurrentState?.OnUpdate();
     }
@@ -63,5 +86,32 @@ public class BattleManager : MonoBehaviour
 
         // Call OnEnter on the new state
         CurrentState.OnEnter();
+    }
+
+    private void Defeat()
+    {
+        isBattleActive = false;
+        gameOverScreen.SetActive(true);
+
+        // Resets stages cleared
+        GameManager.Instance.stagesCleared = 0;
+        GameManager.Instance.UpdateCurrentStage();
+
+        // Makes sure this method only happens once
+        isGameOverActive = true;
+
+    }
+
+    private void Victory()
+    {
+        isBattleActive = false;
+        victoryScreen.SetActive(true);
+
+        // Updates the stages cleared
+        GameManager.Instance.stagesCleared += 1;
+        GameManager.Instance.UpdateCurrentStage();
+
+        // Makes sure this method only happens once
+        isVictoryActive = true;
     }
 }

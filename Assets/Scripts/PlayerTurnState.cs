@@ -13,17 +13,26 @@ public class PlayerTurnState : BattleState
     {
         Debug.Log("Player Turn: START");
 
+        // Assigns unit variables and battle manager at the beginning of battle
         AssignVariables();
 
+        // Resets player defense
+        playerUnit.isDefending = false;
+
+        // Allows player to take one action
+        playerUnit.isTurnDone = false;
+
+        // Increments turn count
         battleManager.turnCount++;
 
+        // Turns on action buttons
         ActionUIInteractable();
     }
 
     public override void OnUpdate()
     {
-        // Simple key check to switch between turns
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Checks if the player has taken their action
+        if (playerUnit.isTurnDone)
         {
             BattleManager.ChangeState(BattleManager.EnemyTurnState);
         }
@@ -44,8 +53,7 @@ public class PlayerTurnState : BattleState
         battleManager.defendButton.interactable = true;
 
         // Keeps the magic button off if magic is not charged
-        // Get isMagicCharged from Player
-        //if (isMagicCharged)
+        if (playerUnit.isMagicCharged)
         {
             battleManager.magicButton.interactable = true;
         }
@@ -60,6 +68,7 @@ public class PlayerTurnState : BattleState
         battleManager.defendButton.interactable = false;
     }
 
+    // Assigns variables once
     private void AssignVariables()
     {
         if (isVariableAssigned == false)

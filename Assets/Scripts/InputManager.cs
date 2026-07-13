@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    public GameObject[] currentPlayer;
+    public GameObject[] currentEnemy;
+
     public Unit playerUnit;
     public Unit enemyUnit;
 
@@ -10,9 +13,9 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        playerUnit = battleManager.playerCurrentStance.GetComponent<Unit>();
+        playerUnit = currentPlayer[GameManager.Instance.battleStance].GetComponent<Unit>();
         Debug.Log("InputManager is trying to find the enemy.");
-        enemyUnit = battleManager.currentOpponent.GetComponent<Unit>();
+        enemyUnit = currentEnemy[GameManager.Instance.stagesCleared].GetComponent<Unit>();
     }
 
     public void AttackButton()

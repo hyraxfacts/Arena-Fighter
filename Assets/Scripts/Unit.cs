@@ -1,25 +1,29 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Unit : MonoBehaviour
 {
     public UnitData unitData; // Assign unit data in the Inspector
 
-    public string unitName { get; private set; }
-    public float attackStrength { get; private set; }
+    private float attackStrength;
     public float attackDamageRange { get; private set; }
     public float heavyDamageMult { get; private set; }
     public float magicStrength { get; private set; }
     public float magicDamageRange { get; private set; }
     public float defense { get; private set; }
+    public float defendingDefense { get; private set; }
 
+    public bool isDefending;
     public bool isMagicCharged { get; private set; }
+
+    public bool isTurnDone;
 
     public int currentHP;
     public int damageToDeal;
 
     void Start()
     {
-        // Configure the unit based on the ScriptableObject data
+        // Configure variables based on ScriptableObject data
         currentHP = unitData.maxHP;
         gameObject.name = unitData.unitName;
         attackStrength = unitData.attackStrength;
@@ -28,44 +32,63 @@ public class Unit : MonoBehaviour
         magicStrength = unitData.magicStrength;
         magicDamageRange = unitData.magicDamageRange;
         defense = unitData.defense;
+        defendingDefense = defense / 2;
         isMagicCharged = unitData.isMagicCharged;
-        Debug.Log($"Unit {name} created with {attackStrength} attack!");
+        isTurnDone = false;
+
+        Debug.Log($"Unit {name} has {attackStrength} attack and {currentHP} health!");
     }
 
     public void Attack(Unit target)
     {
         float tempDamage;
 
+        Debug.Log($"Unit {name} has {attackStrength} attack and {currentHP} health!");
+
+        // Calculates random damage based on attack strength and range
         RandomDamage();
-        tempDamage = damageToDeal * target.defense;
+
+        // Multiplies damage by increased defense if target is defending
+        if (target.isDefending)
+        {
+            tempDamage = damageToDeal * target.defendingDefense;
+        }
+        else
+        {
+            tempDamage = damageToDeal * target.defense;
+        }
+
         damageToDeal = Mathf.RoundToInt(tempDamage);
 
-        // Reduce damage dealt if player is defending
-        // will probably just increase defense on that turn
-        //if (target.isDefending)
-        //{
-        //    damageToDeal /= 2;
-        //}
-
+        // Deals damage to target
         target.currentHP -= damageToDeal;
 
         Debug.Log($"{name} attacks {target.name} for {damageToDeal} damage!");
 
-        // Damage is applied and animations play here
+        // Prevents the player from taking more than one action per turn
+        isTurnDone = true;
     }
 
     public void Defend()
     {
         Debug.Log($"{name} is defending!");
 
-        // Defense applied to unit here
+        // Unit takes half damage during this turn
+        isDefending = true;
+
+        // Prevents the player from taking more than one action per turn
+        isTurnDone = true;
     }
 
     public void Charge()
     {
         Debug.Log($"{name} is charging their attack!");
 
+        // Allows magic to be used next turn
         isMagicCharged = true;
+
+        // Prevents the player from taking more than one action per turn
+        isTurnDone = true;
     }
 
     public void MagicAttack(Unit target)
@@ -76,13 +99,29 @@ public class Unit : MonoBehaviour
 
             float tempDamage;
 
+            // Calculates random damage based on magic strength and range
             RandomMagicDamage();
-            tempDamage = damageToDeal * target.defense;
+
+            // Multiplies damage by increased defense if target is defending
+            if (target.isDefending)
+            {
+                tempDamage = damageToDeal * target.defendingDefense;
+            }
+            else
+            {
+                tempDamage = damageToDeal * target.defense;
+            }
+
             damageToDeal = Mathf.RoundToInt(tempDamage);
 
+            // Deals damage to target
             target.currentHP -= damageToDeal;
 
-            // Damage is applied and animations play here
+            // Resets magic charge
+            isMagicCharged = false;
+
+            // Prevents the player from taking more than one action per turn
+            isTurnDone = true;
         }
         else
         {
@@ -96,6 +135,7 @@ public class Unit : MonoBehaviour
     {
         int damageMin = Mathf.RoundToInt(attackStrength - (attackStrength * attackDamageRange));
         int damageMax = Mathf.RoundToInt(attackStrength + (attackStrength * attackDamageRange));
+        Debug.Log("Damage range is from " + damageMin + " to " + damageMax);
 
         damageToDeal = Random.Range(damageMin, damageMax);
     }
