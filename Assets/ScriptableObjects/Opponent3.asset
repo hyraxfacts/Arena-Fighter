@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a27d428b7e5825428e7e3712e4f6820, type: 3}
   m_Name: Opponent3
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
-  unitName: Guy Who is Diametrically Opposed to Your Political Viewpoint
+  unitName: Opponent
+  unitDescription: Guy Who Is Diametrically Opposed to Your Political Position
   maxHP: 100
   attackStrength: 20
   attackDamageRange: 0.1
   heavyDamageMult: 1.5
-  magicStrength: 1
-  magicDamageRange: 1
+  magicStrength: 25
+  magicDamageRange: 0.25
   defense: 1
   isMagicCharged: 0
+  enemyBehavior: Magic

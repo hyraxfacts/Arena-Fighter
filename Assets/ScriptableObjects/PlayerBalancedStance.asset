@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerBalancedStance
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Player
+  unitDescription: Balanced Stance
   maxHP: 100
   attackStrength: 12
   attackDamageRange: 0.25
@@ -21,3 +22,4 @@ MonoBehaviour:
   magicDamageRange: 0.4
   defense: 0.9
   isMagicCharged: 0
+  enemyBehavior: 

@@ -1,13 +1,18 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerTurnState : BattleState
 {
     public PlayerTurnState(BattleManager battleManager) : base(battleManager) { }
 
+    private GameObject enemyTurnIndicator;
+    private GameObject playerTurnIndicator;
+
     private bool isVariableAssigned;
     private BattleManager battleManager;
     private Unit playerUnit;
     private Unit enemyUnit;
+    private float playerTurnTimer;
 
     public override void OnEnter()
     {
@@ -22,6 +27,9 @@ public class PlayerTurnState : BattleState
         // Allows player to take one action
         playerUnit.isTurnDone = false;
 
+        // 2 second timer
+        playerTurnTimer = 2f;
+
         // Increments turn count
         battleManager.turnCount++;
 
@@ -31,18 +39,21 @@ public class PlayerTurnState : BattleState
 
     public override void OnUpdate()
     {
-        // Checks if the player has taken their action
+        // Starts timer if the player has taken their action
         if (playerUnit.isTurnDone)
         {
-            BattleManager.ChangeState(BattleManager.EnemyTurnState);
+            playerTurnTimer -= Time.deltaTime;
+
+            ActionUIUninteractable();
+
+            playerTurnIndicator.SetActive(false);
+            enemyTurnIndicator.SetActive(true);
+
+            if (playerTurnTimer <= 0)
+            {
+                BattleManager.ChangeState(BattleManager.EnemyTurnState);
+            }
         }
-    }
-
-    public override void OnExit()
-    {
-        Debug.Log("Player Turn: END");
-
-        ActionUIUninteractable();
     }
 
     // Turns on action buttons
@@ -76,6 +87,8 @@ public class PlayerTurnState : BattleState
             battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
             playerUnit = battleManager.playerCurrentStance.GetComponent<Unit>();
             enemyUnit = battleManager.currentOpponent.GetComponent<Unit>();
+            enemyTurnIndicator = battleManager.enemyTurnIndicator;
+            playerTurnIndicator = battleManager.playerTurnIndicator;
 
             isVariableAssigned = true;
         }

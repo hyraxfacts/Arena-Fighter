@@ -19,13 +19,16 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField]
     private GameObject[] opponent;
-    public GameObject currentOpponent;
-    public Unit enemyUnit;
+    public GameObject currentOpponent { get; private set; }
+    public Unit enemyUnit { get; private set; }
 
     [SerializeField]
     private GameObject[] player;
-    public GameObject playerCurrentStance;
-    public Unit playerUnit;
+    public GameObject playerCurrentStance { get; private set; }
+    public Unit playerUnit { get; private set; }
+
+    public GameObject playerTurnIndicator;
+    public GameObject enemyTurnIndicator;
 
     [SerializeField]
     private GameObject gameOverScreen;

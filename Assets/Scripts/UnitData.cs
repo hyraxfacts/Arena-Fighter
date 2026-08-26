@@ -4,6 +4,7 @@ using UnityEngine;
 public class UnitData : ScriptableObject
 {
     public string unitName;
+    public string unitDescription;
     public int maxHP;
     public float attackStrength;
     public float attackDamageRange;
@@ -12,4 +13,5 @@ public class UnitData : ScriptableObject
     public float magicDamageRange;
     public float defense;
     public bool isMagicCharged;
+    public string enemyBehavior;
 }

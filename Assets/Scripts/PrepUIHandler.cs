@@ -12,6 +12,7 @@ public class PrepUIHandler : MonoBehaviour
     public GameObject prepUI;
     public GameObject victoryUI;
     public GameObject pauseMenu;
+    public string nextOpponentName;
     private bool isStanceSelected;
 
 
@@ -21,10 +22,12 @@ public class PrepUIHandler : MonoBehaviour
         isStanceSelected = false;
 
         // Once all enemies are defeated, the victory screen is displayed
-        if (GameManager.Instance.currentStage <= GameManager.Instance.currentOpponentName.Length)
+        if (GameManager.Instance.currentStage <= GameManager.Instance.opponentData.Length)
         {
+            nextOpponentName = GameManager.Instance.opponentDescription;
+
             roundCounterText.text = ("Round " + GameManager.Instance.currentStage);
-            opponentText.text = ("Next opponent: " + GameManager.Instance.currentOpponentName[GameManager.Instance.stagesCleared]);
+            opponentText.text = ("Next opponent: " + nextOpponentName);
         }
         else
         {

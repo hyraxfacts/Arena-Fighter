@@ -8,6 +8,7 @@ public class BattleUIHandler : MonoBehaviour
     public TextMeshProUGUI opponentNameText;
     public TextMeshProUGUI playerHealthUI;
     public TextMeshProUGUI opponentHealthUI;
+    public TextMeshProUGUI playerStanceText;
 
     private BattleManager battleManager;
     private Unit playerUnit;
@@ -16,11 +17,12 @@ public class BattleUIHandler : MonoBehaviour
     private void Start()
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        playerUnit = battleManager.playerCurrentStance.GetComponent<Unit>();
-        enemyUnit = battleManager.currentOpponent.GetComponent<Unit>();
+        playerUnit = battleManager.playerUnit;
+        enemyUnit = battleManager.enemyUnit;
 
         battleCounterText.text = ("Round " + GameManager.Instance.currentStage);
-        opponentNameText.text = (enemyUnit.name);
+        opponentNameText.text = (GameManager.Instance.opponentDescription);
+        playerStanceText.text = (playerUnit.name);
     }
 
     private void Update()

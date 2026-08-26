@@ -2,20 +2,16 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public GameObject[] currentPlayer;
-    public GameObject[] currentEnemy;
-
-    public Unit playerUnit;
-    public Unit enemyUnit;
+    private Unit playerUnit;
+    private Unit enemyUnit;
 
     private BattleManager battleManager;
 
     private void Start()
     {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        playerUnit = currentPlayer[GameManager.Instance.battleStance].GetComponent<Unit>();
-        Debug.Log("InputManager is trying to find the enemy.");
-        enemyUnit = currentEnemy[GameManager.Instance.stagesCleared].GetComponent<Unit>();
+        playerUnit = battleManager.playerCurrentStance.GetComponent<Unit>();
+        enemyUnit = battleManager.currentOpponent.GetComponent<Unit>();
     }
 
     public void AttackButton()

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a27d428b7e5825428e7e3712e4f6820, type: 3}
   m_Name: Opponent2
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
-  unitName: Your Most Hated Neighbor
+  unitName: Opponent
+  unitDescription: Your Least Favorite Neighbor
   maxHP: 100
   attackStrength: 10
   attackDamageRange: 0.2
@@ -21,3 +22,4 @@ MonoBehaviour:
   magicDamageRange: 1
   defense: 1
   isMagicCharged: 0
+  enemyBehavior: Aggressive

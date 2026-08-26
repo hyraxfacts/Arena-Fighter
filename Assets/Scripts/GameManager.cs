@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     public int stagesCleared;
 
     public int currentStage;
-    public string[] currentOpponentName;
+
+    public UnitData[] opponentData;
+    public string opponentDescription;
 
     private void Awake()
     {
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
     public void UpdateCurrentStage()
     {
         currentStage = stagesCleared + 1;
+
+        opponentDescription = opponentData[stagesCleared].unitDescription;
     }
 
     [System.Serializable]

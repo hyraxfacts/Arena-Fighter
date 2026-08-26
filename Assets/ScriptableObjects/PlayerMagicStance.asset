@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerMagicStance
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Player
+  unitDescription: Magic Stance
   maxHP: 100
   attackStrength: 8
   attackDamageRange: 0.3
@@ -21,3 +22,4 @@ MonoBehaviour:
   magicDamageRange: 0.3
   defense: 0.95
   isMagicCharged: 0
+  enemyBehavior: 

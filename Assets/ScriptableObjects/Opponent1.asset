@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a27d428b7e5825428e7e3712e4f6820, type: 3}
   m_Name: Opponent1
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
-  unitName: Guy Who Woke Up Angry
+  unitName: Opponent
+  unitDescription: Guy You Hate
   maxHP: 100
   attackStrength: 15
   attackDamageRange: 0.2
@@ -21,3 +22,4 @@ MonoBehaviour:
   magicDamageRange: 1
   defense: 1
   isMagicCharged: 0
+  enemyBehavior: Defensive

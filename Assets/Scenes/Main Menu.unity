@@ -147,7 +147,7 @@ RectTransform:
   m_GameObject: {fileID: 185786680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1062132790}
@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -13.59}
+  m_AnchoredPosition: {x: 0, y: 20.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &185786682
@@ -278,7 +278,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379336345}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
@@ -330,7 +330,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -636,7 +636,7 @@ RectTransform:
   m_GameObject: {fileID: 903320573}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 548496519}
@@ -644,7 +644,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 24.9}
+  m_AnchoredPosition: {x: 0, y: -46.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &903320575
@@ -769,7 +769,7 @@ RectTransform:
   m_GameObject: {fileID: 917797117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1533942977}
@@ -777,7 +777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -122.98}
+  m_AnchoredPosition: {x: 0, y: -198}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &917797119
@@ -1349,6 +1349,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1485,10 +1486,11 @@ MonoBehaviour:
   battleStance: 0
   stagesCleared: 0
   currentStage: 0
-  currentOpponentName:
-  - Guy Who Woke Up Angry
-  - Your Most Hated Neighbor
-  - Guy Who is Diametrically Opposed to Your Political Viewpoint
+  opponentData:
+  - {fileID: 11400000, guid: f841dd981cfff8946aa58adccdba851a, type: 2}
+  - {fileID: 11400000, guid: 11c7719c9bd98a345b4354adfc11e5a2, type: 2}
+  - {fileID: 11400000, guid: 6d3246e86f7f8824a9b318bccc1f4954, type: 2}
+  opponentDescription: 
 --- !u!4 &1780297828
 Transform:
   m_ObjectHideFlags: 0
@@ -1531,14 +1533,14 @@ RectTransform:
   m_GameObject: {fileID: 2091998726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1610445482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 87.8}
+  m_AnchoredPosition: {x: 0, y: 146.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2091998728
